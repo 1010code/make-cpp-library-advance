@@ -15,6 +15,17 @@
 
 ![](./screenshot/demo3.png)
 
+#### find_package()是如何運作的
+find_package() 函數尋找庫時的查找流程：
+
+1. 首先，會從 CMAKE_MODULE_PATH 變數所指定的路徑下尋找 Find<name>.cmake 文件。
+2. 如果在第一步中沒有找到相應的文件，則會在 CMake 安裝目錄下的 /share/cmake-x.y/Modules 目錄中尋找 Find<name>.cmake 文件。
+3. 如果前兩步都沒有成功，則會嘗試尋找 <Name>Config.cmake 或 <lower-case-name>-config.cmake 文件。這是按照一定的優先順序進行的。如果在某一步找到了相應的文件，就不會再往後尋找。
+4. 可以通過設置相應的變數來控制某些查找順序項的關閉。
+
+例如，如果要尋找 OpenCV 套件，那麼它的查找順序是按照以下方式進行的：
+- 在 CMAKE_PREFIX_PATH 變數指定的路徑下尋找。
+
 
 ## 使用方式
 在VSCode中選擇編譯toolchain: [GCC 8.1.0 x86_64-w64-mingw323]，不用INSTALL。但要手動搬移以編譯好的庫放置packages資料夾下。
